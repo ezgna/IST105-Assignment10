@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Results - Geo Weather Adventure</title>
+  </head>
+  <body>
+    <h1>Weather in 5 random capital cities in {{ continent }}</h1>
+
+    <table border="1" cellpadding="4">
+      <tr>
+        <th>Country</th>
+        <th>Capital</th>
+        <th>Population</th>
+        <th>Lat / Lng</th>
+        <th>Temp (°C)</th>
+        <th>Weather</th>
+      </tr>
+      {% for item in results %}
+      <tr>
+        <td>{{ item.country }}</td>
+        <td>{{ item.capital }}</td>
+        <td>{{ item.population }}</td>
+        <td>
+          {% if item.latlng %}
+            {{ item.latlng.0 }}, {{ item.latlng.1 }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {% if item.weather %}
+            {{ item.weather.temp }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {% if item.weather %}
+            {{ item.weather.description }}
+          {% else %}
+            N/A
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <p>
+      <a href="{% url 'home' %}">Search again</a> |
+      <a href="{% url 'history' %}">View history</a>
+    </p>
+  </body>
+</html>
