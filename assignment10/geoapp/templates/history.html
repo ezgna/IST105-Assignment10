@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search History - Geo Weather Adventure</title>
+  </head>
+  <body>
+    <h1>Search History</h1>
+
+    {% if searches %}
+      <ul>
+        {% for s in searches %}
+          <li>
+            <strong>{{ s.continent }}</strong>
+            — {{ s.searched_at }} (UTC)
+            <ul>
+              {% for r in s.results %}
+                <li>
+                  {{ r.country }} - {{ r.capital }}
+                  {% if r.weather %}
+                    ({{ r.weather.temp }}°C, {{ r.weather.description }})
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No history yet.</p>
+    {% endif %}
+
+    <p><a href="{% url 'home' %}">Back to search</a></p>
+  </body>
+</html>
